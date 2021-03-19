@@ -2,11 +2,13 @@ import { createReducer, on } from '@ngrx/store';
 import {
   addChromecast,
   removeChromecast,
+  selectChromecast,
 } from '../actions/chromecasts.actions';
 import { AppState } from '../app.state';
 
 export const initialState: AppState = {
   chromecasts: [],
+  selectedChromecast: undefined,
 };
 
 export const chromecastsReducer = createReducer(
@@ -21,5 +23,9 @@ export const chromecastsReducer = createReducer(
   on(removeChromecast, (state, { chromecast }) => ({
     ...state,
     chromecasts: state.chromecasts.filter((c) => c.chromecast === chromecast),
+  })),
+  on(selectChromecast, (state, chromecast) => ({
+    ...state,
+    selectedChromecast: chromecast,
   }))
 );

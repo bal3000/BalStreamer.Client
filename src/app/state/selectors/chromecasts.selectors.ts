@@ -11,3 +11,13 @@ export const selectChromecastNames = createSelector(
   selectChromecasts,
   (chromecast: ReadonlyArray<Chromecast>) => chromecast.map((c) => c.chromecast)
 );
+
+export const selectedChromecast = createSelector(
+  (state: AppState) => state.selectedChromecast,
+  (chromecast: Chromecast | undefined) => {
+    if (chromecast) {
+      return chromecast;
+    }
+    return null;
+  }
+);

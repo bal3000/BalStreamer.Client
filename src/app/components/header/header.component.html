@@ -1,2 +1,3 @@
-<p>header works!</p>
- 
+<ul>
+    <li *ngFor="let name of chromecasts$ | async as list" >{{ name }}</li>
+</ul>

@@ -11,6 +11,7 @@ export const removeChromecast = createAction(
   props<Chromecast>()
 );
 
-export const getAllChromecasts = createAction(
-  '[Chromecast API] Get Chromecasts'
+export const selectChromecast = createAction(
+  '[Chromecast] Select Chromecast',
+  props<Chromecast>()
 );
