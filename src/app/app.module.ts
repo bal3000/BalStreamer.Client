@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { chromecastsReducer } from './state/reducers/chromecasts.reducer';
+
 import { AppShellModule } from './app-shell/app-shell.module';
 import { AppComponent } from './app.component';
-import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +16,7 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     AppRoutingModule,
     AppShellModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ chromecasts: chromecastsReducer }),
     EffectsModule.forRoot([]),
   ],
   providers: [],
