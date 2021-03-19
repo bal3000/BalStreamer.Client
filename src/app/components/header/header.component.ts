@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/state/app.state';
 import { ChromecastService } from '../../services/chromecast.service';
 import { addChromecast } from '../../state/actions/chromecasts.actions';
-import { selectChromecasts } from '../../state/selectors/chromecasts.selectors';
+import { selectChromecastNames } from '../../state/selectors/chromecasts.selectors';
 
 @Component({
   selector: 'app-header',
@@ -10,10 +11,10 @@ import { selectChromecasts } from '../../state/selectors/chromecasts.selectors';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  chromecasts$ = this.store.pipe(select(selectChromecasts));
+  chromecasts$ = this.store.pipe(select(selectChromecastNames));
 
   constructor(
-    private readonly store: Store,
+    private readonly store: Store<AppState>,
     private readonly chromecastService: ChromecastService
   ) {}
 

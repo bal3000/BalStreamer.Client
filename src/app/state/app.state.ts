@@ -1,3 +1,5 @@
+import { Chromecast } from '../models/chromecast';
+
 export interface AppState {
-  chromecasts: ReadonlyArray<string>;
+  chromecasts: ReadonlyArray<Chromecast>;
 }

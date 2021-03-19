@@ -1,12 +1,13 @@
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { Chromecast } from 'src/app/models/chromecast';
 import { AppState } from '../app.state';
 
-export const selectChromecastsState = createFeatureSelector<
+export const selectChromecasts = createFeatureSelector<
   AppState,
-  ReadonlyArray<string>
+  ReadonlyArray<Chromecast>
 >('chromecasts');
 
-export const selectChromecasts = createSelector(
-  selectChromecastsState,
-  (chromecasts) => chromecasts
+export const selectChromecastNames = createSelector(
+  selectChromecasts,
+  (chromecast: ReadonlyArray<Chromecast>) => chromecast.map((c) => c.chromecast)
 );
