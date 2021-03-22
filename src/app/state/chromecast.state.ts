@@ -42,7 +42,7 @@ export class ChromecastState {
   ) {
     ctx.setState(
       produce((draft) => {
-        draft.chromecasts.push(action.chromecast.name);
+        draft.chromecasts.push(action.chromecast.chromecast);
       })
     );
   }
@@ -55,7 +55,7 @@ export class ChromecastState {
   ) {
     ctx.setState(
       produce((draft) => {
-        this.removeFromArray(draft.chromecasts, action.chromecast.name);
+        this.removeFromArray(draft.chromecasts, action.chromecast.chromecast);
       })
     );
   }

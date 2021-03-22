@@ -15,11 +15,11 @@ import {
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Select(ChromecastState.chromecasts)
-  chromecasts$: Observable<string[]> = from([]);
+  chromecasts$!: Observable<string[]>;
   @Select(ChromecastState.selectedChromecast)
-  selectedChromecast$: Observable<string> = from('');
+  selectedChromecast$!: Observable<string>;
 
-  chromecastWs$: Subscription = new Subscription();
+  chromecastWs$!: Subscription;
 
   constructor(
     private readonly store: Store,
@@ -29,7 +29,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // tslint:disable-next-line: deprecation
     this.chromecastWs$ = this.chromecastService.getChromecasts().subscribe(
-      (chromecast) => this.store.dispatch(new AddChromecast(chromecast)),
+      (chromecast) => {
+        this.store.dispatch(new AddChromecast(chromecast));
+      },
       (err) => console.log(err),
       () => console.log('complete')
     );
