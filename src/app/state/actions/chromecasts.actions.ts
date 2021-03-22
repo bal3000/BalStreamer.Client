@@ -1,17 +1,20 @@
-import { createAction, props } from '@ngrx/store';
 import { Chromecast } from 'src/app/models/chromecast';
 
-export const addChromecast = createAction(
-  '[Chromecast] Add Chromecast',
-  props<Chromecast>()
-);
+export class GetChromecasts {
+  static readonly type = '[BalStreamer] Get Chromecasts';
+}
 
-export const removeChromecast = createAction(
-  '[Chromecast] Remove Chromecast',
-  props<Chromecast>()
-);
+export class AddChromecast {
+  static readonly type = '[BalStreamer] Add Chromecast';
+  constructor(public chromecast: Chromecast) {}
+}
 
-export const selectChromecast = createAction(
-  '[Chromecast] Select Chromecast',
-  props<Chromecast>()
-);
+export class RemoveChromecast {
+  static readonly type = '[BalStreamer] Remove Chromecast';
+  constructor(public chromecast: Chromecast) {}
+}
+
+export class SetSelectedChromecast {
+  static readonly type = '[BalStreamer] Select Chromecast';
+  constructor(public chromecast: string) {}
+}

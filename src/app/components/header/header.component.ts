@@ -1,32 +1,45 @@
-import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/state/app.state';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { from, Observable, Subscription } from 'rxjs';
+import { ChromecastState } from 'src/app/state/chromecast.state';
 import { ChromecastService } from '../../services/chromecast.service';
-import { addChromecast } from '../../state/actions/chromecasts.actions';
 import {
-  selectChromecastNames,
-  selectedChromecast,
-} from '../../state/selectors/chromecasts.selectors';
+  AddChromecast,
+  SetSelectedChromecast,
+} from '../../state/actions/chromecasts.actions';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
-  chromecasts$ = this.store.pipe(select(selectChromecastNames));
-  selectedChromecast$ = this.store.pipe(select(selectedChromecast));
+export class HeaderComponent implements OnInit, OnDestroy {
+  @Select(ChromecastState.chromecasts)
+  chromecasts$: Observable<string[]> = from([]);
+  @Select(ChromecastState.selectedChromecast)
+  selectedChromecast$: Observable<string> = from('');
+
+  chromecastWs$: Subscription = new Subscription();
 
   constructor(
-    private readonly store: Store<AppState>,
+    private readonly store: Store,
     private readonly chromecastService: ChromecastService
   ) {}
 
   ngOnInit(): void {
-    this.chromecastService.getChromecasts().subscribe(
-      (chromecast) => this.store.dispatch(addChromecast(chromecast)),
+    // tslint:disable-next-line: deprecation
+    this.chromecastWs$ = this.chromecastService.getChromecasts().subscribe(
+      (chromecast) => this.store.dispatch(new AddChromecast(chromecast)),
       (err) => console.log(err),
       () => console.log('complete')
     );
+  }
+
+  ngOnDestroy(): void {
+    this.chromecastWs$.unsubscribe();
+  }
+
+  selectChromecast(name: string): void {
+    this.store.dispatch(new SetSelectedChromecast(name));
   }
 }

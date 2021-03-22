@@ -1,3 +1,3 @@
 export interface Chromecast {
-  chromecast: string;
+  name: string;
 }
