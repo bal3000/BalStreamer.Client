@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Action, Selector, State, StateContext } from '@ngxs/store';
 import produce from 'immer';
-import { ChromecastService } from '../services/chromecast.service';
 import {
   AddChromecast,
   RemoveChromecast,
