@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { from, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { ChromecastState } from 'src/app/state/chromecast.state';
 import { ChromecastService } from '../../services/chromecast.service';
 import {
