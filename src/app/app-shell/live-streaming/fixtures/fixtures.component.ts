@@ -4,8 +4,11 @@ import { Observable } from 'rxjs';
 
 import { LiveStreamingState } from '../../../state/livestreaming.state';
 import { LiveFixture } from '../../../models/live-fixture';
-import { PopulateFixtures } from '../../../state/actions/livestreaming.actions';
-import { SportType } from 'src/app/models/sport-type.enum';
+import {
+  PopulateFixtures,
+  SelectFixture,
+} from '../../../state/actions/livestreaming.actions';
+import { SportType } from '../../../models/sport-type.enum';
 
 @Component({
   selector: 'app-fixtures',
@@ -15,6 +18,9 @@ import { SportType } from 'src/app/models/sport-type.enum';
 export class FixturesComponent implements OnInit {
   @Select(LiveStreamingState.fixtures)
   fixtures$!: Observable<LiveFixture[]>;
+
+  @Select(LiveStreamingState.selectedFixture)
+  selectedFixture$!: Observable<LiveFixture | undefined>;
 
   constructor(private readonly store: Store) {}
 
@@ -26,5 +32,9 @@ export class FixturesComponent implements OnInit {
         new Date(Date.now())
       )
     );
+  }
+
+  selectFixture(fixture: LiveFixture): void {
+    this.store.dispatch(new SelectFixture(fixture));
   }
 }
