@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -23,6 +24,7 @@ import { HeaderComponent } from './components/header/header.component';
     NgxsModule.forRoot([ChromecastState], {
       developmentMode: !environment.production,
     }),
+    NgxsReduxDevtoolsPluginModule.forRoot({ disabled: environment.production }),
   ],
   providers: [ChromecastService],
   bootstrap: [AppComponent],
