@@ -45,15 +45,21 @@ export class LiveStreamingState {
     action: PopulateFixtures
   ) {
     const { sportType, fromDate, toDate } = action;
-    return this.streamingService.getFixtures(sportType, fromDate, toDate).pipe(
-      tap((results) => {
-        ctx.setState(
-          produce((draft) => {
-            draft.fixtures = results;
-          })
-        );
-      })
-    );
+    return this.streamingService
+      .getFixtures(
+        sportType,
+        this.convertDateToString(fromDate),
+        this.convertDateToString(toDate)
+      )
+      .pipe(
+        tap((results) => {
+          ctx.setState(
+            produce((draft) => {
+              draft.fixtures = results;
+            })
+          );
+        })
+      );
   }
 
   @Action(SelectFixture)
@@ -67,5 +73,12 @@ export class LiveStreamingState {
         draft.selectedFixture = action.fixture;
       })
     );
+  }
+
+  private convertDateToString(date: Date): string {
+    const dd = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const yyyy = date.getFullYear();
+    return `${yyyy}-${mm}-${dd}`;
   }
 }

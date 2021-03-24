@@ -15,8 +15,8 @@ export class LivestreamingService {
 
   getFixtures(
     sportType: SportType,
-    fromDate: Date,
-    toDate: Date
+    fromDate: string,
+    toDate: string
   ): Observable<LiveFixture[]> {
     return this.http.get<LiveFixture[]>(
       `${this.liveStreamUrl}/${sportType}/${fromDate}/${toDate}`

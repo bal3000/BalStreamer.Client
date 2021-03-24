@@ -25,13 +25,11 @@ export class FixturesComponent implements OnInit {
   constructor(private readonly store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(
-      new PopulateFixtures(
-        SportType.Soccer,
-        new Date(Date.now()),
-        new Date(Date.now())
-      )
-    );
+    const now = new Date();
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    this.store.dispatch(new PopulateFixtures(SportType.Soccer, now, tomorrow));
   }
 
   selectFixture(fixture: LiveFixture): void {
